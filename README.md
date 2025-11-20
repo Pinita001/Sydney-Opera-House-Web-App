@@ -2,12 +2,11 @@
 
 🔰 Badges
 <p align="center">
-  <img src="https://img.shields.io/badge/Flutter-3.19-skyblue" />
-  <img src="https://img.shields.io/badge/Dart-Language-blue" />
-  <img src="https://img.shields.io/badge/OpenAI-ChatGPT-purple" />
-  <img src="https://img.shields.io/badge/iOS-Ready-lightgrey" />
-  <img src="https://img.shields.io/badge/Android-Ready-green" />
-  <img src="https://img.shields.io/badge/Status-In_Progress-yellow" />
+  <img src="https://img.shields.io/badge/PHP-8.2-blue" />
+  <img src="https://img.shields.io/badge/MySQL-Database-orange" />
+  <img src="https://img.shields.io/badge/JavaScript-ES6-yellow" />
+  <img src="https://img.shields.io/badge/HTML5-CSS3-red" />
+  <img src="https://img.shields.io/badge/Status-Prototype-yellow" />
 </p>
 
 ## 📄 Overview
