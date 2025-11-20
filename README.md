@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://i.imgur.com/JBzQkC6.png" alt="Sydney Opera House System" width="100%">
-</p>
-
 # 📘 Sydney Opera House Booking System
 
 🔰 Badges
