@@ -1,0 +1,1072 @@
+:root {
+    --primary: #d9242e;
+    --primary-dark: #b51d26;
+    --secondary: #f2c94c;
+    --dark: #1a1a1a;
+    --light: #f8f8f8;
+    --gray: #e0e0e0;
+    --gray-dark: #888;
+    --text: #333;
+    --white: #fff;
+
+    /* Highlight Colors */
+    --highlight-glow: #FFC107; /* Strong Amber/Gold for intense glow */
+    --highlight-bg: #FFF9C4; /* Visibly Pale Yellow for card background */
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    color: var(--text);
+    background-color: var(--light);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5 {
+    /* Use Playfair Display for dramatic titles */
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+/* Header and Navigation */
+header {
+    background-color: var(--dark);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo {
+    max-height: 60px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+}
+
+.nav-item {
+    margin-left: 30px;
+}
+
+.nav-link {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--secondary);
+}
+
+.nav-link.active {
+    color: var(--primary);
+}
+
+/* Ensure the parent link is the reference point for the badge */
+.nav-menu .nav-item .nav-link {
+    position: relative; 
+}
+
+/* --- Cart Badge Styling --- */
+.cart-badge {
+    position: absolute;
+    top: -8px; 
+    right: -15px; 
+    
+    background-color: var(--primary); 
+    color: var(--white);
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 20px;
+    text-align: center;
+    display: none; 
+}
+
+
+/* Hero Section Home Page */
+.hero {
+    height: 70vh;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), 
+                url('https://cdn.pixabay.com/photo/2018/05/07/22/08/sydney-opera-house-3381786_1280.jpg') no-repeat center center/cover;
+    
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    text-align: center; 
+    color: var(--white);
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 40px; 
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--white);
+    box-shadow: none;
+}
+
+.btn-outline:hover {
+    background-color: var(--white);
+    color: var(--dark);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Content Containers */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+}
+
+.section-title span {
+    color: var(--primary);
+}
+
+/* Featured Shows */
+.featured-shows {
+    background-color: #f0f0f0;
+    padding: 60px 0;
+}
+
+.show-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.show-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
+}
+
+.show-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.show-image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.show-info {
+    padding: 20px;
+}
+
+.show-info h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.show-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+}
+
+.show-venue {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.show-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.show-price {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: var(--primary);
+}
+
+/* --- Styles for Shows Page UI --- */
+.show-actions .quantity-input {
+    width: 60px; 
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    text-align: center;
+    -moz-appearance: textfield; 
+}
+.show-actions .quantity-input::-webkit-outer-spin-button,
+.show-actions .quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.show-actions {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+}
+
+.show-actions > details,
+.show-actions > .showtime-select {
+    width: 100%;
+}
+
+.show-actions > .quantity-input + .add-to-cart-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px; 
+}
+
+
+/* =========================================================
+   *** HIGHLIGHT EFFECT  ***
+   ========================================================= */
+
+.show-card.linked-show-highlight { 
+    background-color: var(--highlight-bg) !important; 
+    
+    box-shadow: 
+        0 0 5px 3px var(--highlight-glow), 
+        0 0 15px 5px var(--highlight-glow), 
+        0 0 35px 15px rgba(255, 193, 7, 0.4); 
+    
+    border: none; 
+    transform: scale(1.04); 
+    transition: all 0.4s ease-in-out; 
+}
+
+/* =========================================================
+   *** CART AND CHECKOUT STYLES ***
+   ========================================================= */
+
+.cart-container {
+    padding: 30px 0; 
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    background-color: var(--white);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden; 
+}
+
+.cart-table th, .cart-table td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid var(--gray); 
+}
+
+.cart-table th {
+    background-color: var(--dark);
+    color: var(--white);
+    font-weight: 600;
+}
+
+.cart-table td {
+    vertical-align: middle;
+}
+
+.quantity-input {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    -moz-appearance: textfield; 
+}
+
+.remove-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-btn i {
+    color: var(--primary);
+    font-size: 1.2rem;
+    transition: color 0.2s;
+}
+
+.remove-btn:hover i {
+    color: var(--primary-dark);
+}
+
+/* Cart Summary Styling */
+.cart-summary {
+    max-width: 350px; 
+    float: right; 
+    margin: 20px 0 20px 30px; 
+    padding: 25px;
+    background-color: var(--white); 
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); 
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--gray); 
+}
+
+.summary-line:last-child {
+    border-bottom: none; 
+}
+
+.total-price-line {
+    border-top: 2px solid var(--dark); 
+    margin-top: 15px;
+    padding-top: 15px;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.checkout-btn {
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* =========================================================
+   *** CHECKOUT PAGE STYLES ***
+   ========================================================= */
+
+.checkout-page {
+    padding: 60px 20px;
+}
+
+.checkout-container {
+    max-width: 600px; 
+    width: 100%;
+    padding: 40px; 
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); 
+    margin: 0 auto;
+}
+
+.checkout-container h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--dark);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid var(--gray);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 5px rgba(217, 36, 46, 0.3);
+}
+
+.form-group-split {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group-split .form-group {
+    flex: 1; 
+}
+
+/* Button styling for checkout page */
+.checkout-btn-main {
+    width: 100%;
+    margin-top: 30px;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+}
+
+/* Styling for the Login/Guest Toggle section */
+.login-options {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed var(--gray); 
+}
+
+.login-options p {
+    margin-bottom: 10px;
+}
+
+.login-options a, #guestBtn {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.login-options a:hover, #guestBtn:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* ====================================
+   HOME PAGE STYLES
+   ==================================== */
+
+/* --- 1. HERO FONT (Aesthetic Serif) --- */
+.hero-title-style.fancy-font {
+    font-family: 'Playfair Display', serif; 
+    font-size: 4em; 
+    font-weight: 900; 
+    line-height: 1.05;
+    letter-spacing: -1px;
+    color: var(--white);
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+}
+
+/* --- 2. ABOUT/HISTORY (Elegant Split Sections) --- */
+.content-split-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.history-section {
+    background-color: var(--light);
+    padding-bottom: 0;
+}
+
+.history-content {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start; 
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.history-content .content-text {
+    flex: 1;
+    font-size: 1.1em;
+    line-height: 1.7;
+    padding-top: 20px;
+}
+
+.history-content .content-image {
+    flex: 1;
+    min-height: 350px;
+    background-size: cover;
+    background-position: center bottom;
+    border-radius: 6px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transform: translateY(-20px); 
+}
+
+.history-image img { width: 100%; height: auto; display: block; }
+
+
+/* About Us Section: Elegant Centered Box */
+.about-us {
+    padding: 60px 0;
+    background-color: var(--white);
+}
+
+.about-us .about-content {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 40px;
+    border: 1px solid var(--gray);
+    border-left: 5px solid var(--primary); 
+    border-radius: 8px;
+    background-color: #fafafa;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.about-us .about-content p {
+    font-style: italic; 
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+/* Footer Layout Fix */
+footer {
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 50px 20px 20px;
+    clear: both; 
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex; 
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.footer-column {
+    flex: 1; 
+}
+
+.footer-column h3 {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--white);
+}
+
+
+@media (max-width: 992px) {
+    .hero-title-style.fancy-font {
+        font-size: 3em;
+    }
+    .history-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .history-content .content-image {
+        width: 100%;
+        max-width: 400px;
+        transform: translateY(0);
+    }
+    .history-content .content-text {
+        padding-top: 0;
+    }
+    
+    /* Cart Summary responsiveness */
+    .cart-summary {
+        max-width: 100%;
+        float: none;
+        margin: 20px 0;
+    }
+}
+
+
+/* ====================================
+   ACCOUNT LOGIN PROMPT STYLING
+   ==================================== */
+
+.account-prompt {
+    text-align: center;
+    padding: 60px 0;
+    min-height: 70vh; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.account-title {
+    color: var(--primary);
+    margin-bottom: 40px;
+    font-size: 3rem; /* Make the title large and prominent */
+}
+
+.profile-icon {
+    font-size: 5rem;
+    color: var(--gray-dark);
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.login-message {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.login-launch-btn {
+    margin-top: 30px;
+    padding: 12px 40px;
+}
+
+
+/* =======================================================
+   *** LOGIN/REGISTER MODAL STYLES ***
+   ======================================================= */
+
+.modal-overlay {
+    background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
+    position: fixed; /* Essential for overlay */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-overlay.active {
+    display: flex; /* Show when active */
+}
+
+.modal-content {
+    padding: 35px 45px; 
+    border-radius: 12px; 
+    max-width: 420px; 
+    width: 90%;
+    background-color: var(--white);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6); 
+    text-align: center; 
+}
+
+/* Modal Tab Bar Styling */
+.modal-tabs {
+    justify-content: space-around;
+    border-bottom: 2px solid var(--gray); /* Stronger separation line */
+    margin-bottom: 30px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 10px;
+    font-size: 1.1rem; 
+    font-weight: 700; 
+    color: var(--gray-dark);
+    cursor: pointer;
+    transition: color 0.3s;
+    background: none;
+    border: none;
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary);
+    margin-bottom: -2px; /* Ensure the red border is prominent and clean */
+}
+
+/* Form Groups and Inputs */
+.form-container {
+    text-align: left; /* Ensure form elements left-align */
+    display: none; /* Initially hidden, shown by JS */
+}
+
+.form-container.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 15px; /* Tighter spacing */
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.9em;
+    color: var(--text);
+}
+
+.form-container input {
+    width: 100%;
+    padding: 12px; 
+    border: 1px solid var(--gray);
+    border-radius: 6px;
+    margin-top: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-container input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(217, 36, 46, 0.2); 
+    outline: none;
+}
+
+.remember-me {
+    justify-content: flex-start;
+    font-size: 0.95em;
+    margin-bottom: 20px;
+}
+
+/* Submission Button */
+.form-container .btn {
+    width: 100%;
+    padding: 16px; 
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(217, 36, 46, 0.3); 
+    margin-top: 15px;
+}
+
+.forgot-password-link {
+    font-size: 1em; 
+    font-weight: 600;
+    color: var(--dark); 
+    cursor: pointer;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.forgot-password-link:hover {
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   *** LOGGED-IN ACCOUNT DASHBOARD STYLES ***
+   ========================================================= */
+
+.account-dashboard {
+    padding: 40px 0;
+}
+
+/* Grid Layout for Sidebar and Main Content */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* Sidebar and main content */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- 1. Sidebar Navigation (Left Column) --- */
+.sidebar-nav {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 10px 0;
+}
+
+.sidebar-nav .nav-list {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-nav .nav-item-link {
+    border-left: 4px solid transparent; /* Red bar accent */
+    transition: all 0.2s ease;
+}
+
+.sidebar-nav .nav-item-link a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.sidebar-nav .nav-item-link a:hover {
+    color: var(--primary);
+}
+
+.sidebar-nav .nav-item-link.active {
+    background-color: var(--light); /* Subtle background for active tab */
+    border-left-color: var(--primary); 
+    font-weight: 600;
+}
+
+.sidebar-nav .nav-item-link.active a {
+    color: var(--primary);
+}
+
+.sidebar-nav i {
+    font-size: 1.1rem;
+    width: 20px; /* Aligns icons neatly */
+    text-align: center;
+}
+
+/* --- 2. Main Content Area (Right Column) --- */
+.main-content-area {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+}
+
+.account-tab-content {
+    display: none;
+}
+
+.account-tab-content.active {
+    display: block;
+}
+
+.content-heading {
+    font-size: 1.8rem;
+    color: var(--dark);
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray);
+}
+
+/* --- Profile Tab Styling --- */
+.profile-header-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--gray);
+}
+
+.profile-avatar-lg {
+    font-size: 4rem; /* Large user icon */
+    color: var(--gray-dark);
+}
+
+.user-details h4 {
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+}
+
+.user-details p {
+    color: var(--gray-dark);
+    font-size: 0.9em;
+}
+
+.profile-form .form-section-title {
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray);
+}
+
+.profile-form .form-control {
+    background-color: var(--light); /* Light background for inputs */
+    border: 1px solid var(--gray);
+    padding: 10px;
+    font-size: 1em;
+}
+
+.profile-form .btn {
+    padding: 10px 30px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+/* --- Booking Log & Membership Perks (Table/Grid) --- */
+.booking-status-header {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.upcoming-header {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.past-header {
+    background-color: var(--gray);
+    color: var(--text);
+}
+
+.booking-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.booking-table th, .booking-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray);
+}
+
+.booking-table th {
+    background-color: var(--dark); /* Dark header for contrast */
+    color: var(--white);
+    text-transform: uppercase;
+    font-size: 0.85em;
+}
+
+.booking-table .empty-message {
+    text-align: center;
+    font-style: italic;
+    color: var(--gray-dark);
+}
+
+.perks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.perk-card {
+    background-color: var(--light);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    border-bottom: 4px solid var(--secondary); /* Gold accent */
+}
+
+.perk-card:hover {
+    transform: translateY(-3px);
+}
+
+    .tabs { display: flex; gap: 8px; justify-content: center; margin: 0 auto 20px; }
+    .tab-btn { background: transparent; border: 2px solid var(--gray); padding: 10px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+    .tab-btn.active { border-color: var(--primary); color: var(--primary); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+  
+    .tab-intro {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 0 auto 30px;
+      max-width: 1100px;
+    }
+    .intro-card {
+      margin: 0; padding: 0;
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      text-align: center;
+    }
+    .intro-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .intro-card figcaption {
+      padding: 12px 10px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+  
+    /* Minimal tab styling */
+    .tabs { display: flex; gap: 8px; justify-content: center; margin: 0 auto 20px; }
+    .tab-btn { background: transparent; border: 2px solid var(--gray); padding: 10px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+    .tab-btn.active { border-color: var(--primary); color: var(--primary); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+  
+    .tab-intro {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 0 auto 30px;
+      max-width: 1100px;
+    }
+    .intro-card {
+      margin: 0; padding: 0;
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      text-align: center;
+    }
+    .intro-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .intro-card figcaption {
+      padding: 12px 10px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+  
+

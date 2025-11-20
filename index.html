@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sydney Opera House - Book Tickets</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <!-- HEADER SECTION: Navigation bar across all pages -->
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="logos.png" alt="Sydney Opera House" class="logo">
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="shows.html" class="nav-link">Shows</a></li>
+                <li class="nav-item">
+                    <a href="carts.html" class="nav-link">
+                        Cart
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                </li>
+                <li class="nav-item"><a href="experiences.html" class="nav-link" data-page="experiences">Experiences</a></li>
+                <li class="nav-item"><a href="account.html" class="nav-link">Account</a></li>
+                <li class="nav-item"><a href="recommend.html" class="nav-link" data-page="Recommends">Recommends</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title-style fancy-font">Experience the Magic of Sydney's Opera House</h1>
+            <p>Book tickets to world-class opera, ballet, theatre, and concerts.</p>
+            <a href="shows.html" class="btn primary-btn">Explore Shows</a>
+        </div>
+    </section>
+
+    <section class="history-section content-split-section">
+        <div class="container">
+            <h2 class="section-title">History of the <span>Opera House</span></h2>
+            <div class="history-content">
+                <div class="content-text">
+    <p><strong>The Sydney Opera House</strong> stands on Bennelong Point, a site with deep cultural significance to the Gadigal people of the Eora Nation. In the 20th century it became the stage for one of the world’s most ambitious pieces of public architecture—an idea that would redefine Sydney’s skyline and Australia’s cultural identity.</p>
+    <p>In 1956, the New South Wales government launched an international design competition for a “national opera house.” Out of more than 200 entries, the radical, sculptural concept by Danish architect <em>Jørn Utzon</em> was plucked from the reject pile by judge Eero Saarinen. Utzon imagined a cluster of luminous “shells” rising from a broad podium, like sails unfurling on the harbour.</p>
+    <p>Construction began in 1959 and unfolded in two intertwined stories: breathtaking innovation and formidable challenge. Engineers developed a pioneering “spherical solution” so that the roof shells could be formed from repeatable precast segments, enabling the complex geometry to be built at scale. At the same time, budgets and timelines stretched far beyond early expectations as the bold design demanded new methods, materials and craftsmanship.</p>
+    
+    </div>
+                <div class="content-image history-image">
+                    <img src="aboutus.png" alt="about-us" class="show-image">
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-us content-box-section">
+        <div class="container">
+            <h2 class="section-title">About <span>Us</span></h2>
+            <div class="about-content">
+                <p>The Sydney Opera House is an architectural masterpiece and a world-class performing arts venue. As one of the world's busiest cultural hubs, we host over 1,500 performances and welcome more than 10.9 million visitors every year.</p>
+                <p>Our mission is to treasure and renew the Opera House for future generations of artists, audiences and visitors, and to inspire, provoke and encourage the pursuit of the beautiful.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-shows">
+        <div class="container">
+            <h2 class="section-title">Popular <span>Now</span></h2>
+            <div class="show-grid">
+                <div class="show-card">
+                    <img src="show1.png" alt="La Traviata" class="show-image">
+                    <div class="show-info">
+                        <h3>La Traviata</h3>
+                        <div class="show-meta">
+                            <div class="show-venue"><i class="fas fa-map-marker-alt"></i> Main Hall</div>
+                            <div class="show-date"><i class="far fa-calendar-alt"></i> November, 2025</div>
+                        </div>
+                        <p>Verdi's passionate tale of love and sacrifice returns.</p>
+                        <div class="show-price">$120.00</div>
+                        <a href="shows.html?open=1" class="btn primary-btn">Book Tickets</a>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <img src="show2.png" alt="Swan Lake" class="show-image">
+                    <div class="show-info">
+                        <h3>Swan Lake</h3>
+                        <div class="show-meta">
+                            <div class="show-venue"><i class="fas fa-map-marker-alt"></i> Concert Hall</div>
+                            <div class="show-date"><i class="far fa-calendar-alt"></i> November, 2025</div>
+                        </div>
+                        <p>The Australian Ballet presents Tchaikovsky's timeless masterpiece.</p>
+                        <div class="show-price">$150.00</div>
+                        <a href="shows.html?open=2" class="btn primary-btn">Book Tickets</a>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <img src="show3.png" alt="Sydney Symphony Orchestra" class="show-image">
+                    <div class="show-info">
+                        <h3>Sydney Symphony Orchestra</h3>
+                        <div class="show-meta">
+                            <div class="show-venue"><i class="fas fa-map-marker-alt"></i> Concert Hall</div>
+                            <div class="show-date"><i class="far fa-calendar-alt"></i> November, 2025</div>
+                        </div>
+                        <p>A night of classical masterpieces performed by Australia's finest musicians.</p>
+                        <div class="show-price">$95.00</div>
+                        <a href="shows.html?open=3" class="btn primary-btn">Book Tickets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Sydney Opera House</h3>
+                <p>Bennelong Point<br>Sydney NSW 2000<br>Australia</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="shows.html">What's On</a></li>
+                    <li><a href="account.html">My Account</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+<!-- Scripts to handle shopping cart logic -->
+<!-- cart-store.js likely manages localStorage/sessionStorage for saving selected shows -->
+    <script src="cart-store.js"></script>
+
+<!-- cart-badge.js updates the little number beside “Cart” in the navigation bar -->
+<script src="cart-badge.js"></script>
+</body>
+</html>

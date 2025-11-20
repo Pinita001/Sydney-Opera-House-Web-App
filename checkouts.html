@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout - Cinema Booking</title>
+<link href="styles.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- Header -->
+<header>
+<div class="nav-container">
+<div class="logo-container">
+<img alt="Sydney Opera House" class="logo" src="logos.png"/>
+</div>
+<ul class="nav-menu">
+<li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="shows.php">Shows</a></li>
+<li class="nav-item">
+<a class="nav-link" href="carts.php">
+                        Cart 
+                        <span class="cart-badge" id="cartBadge">0</span>
+</a>
+</li>
+<li class="nav-item"><a class="nav-link" data-page="experiences" href="experiences.php">Experiences</a></li>
+<li class="nav-item"><a class="nav-link" href="account.php">Account</a></li>
+<li class="nav-item"><a href="recommend.html" class="nav-link">Recommends</a></li>
+</ul>
+</div>
+</header>
+<!-- Checkout Form -->
+<section class="checkout-container">
+<div class="container">
+<h2 class="section-title">Checkout</h2>
+<!-- Login/Guest Option -->
+
+<div class="login-options">
+<p>Logged In
+</p></div>
+
+<!-- Checkout Form -->
+ <!-- When submitted, form data is posted to checkout.php -->
+<form action="checkout.php" autocomplete="off" id="checkoutForm" method="POST">
+
+<script>
+document.getElementById('checkoutForm').addEventListener('submit', function(event) { // Attach listener that triggers on form submissions
+  const card = document.getElementById('cardNumber').value.trim(); // Get user-entered payment fields and trim spaces
+  const expiry = document.getElementById('expiryDate').value.trim();
+  const cvv = document.getElementById('cvv').value.trim();
+
+  // === Validate Card Number (must be 16 digits only) ===
+  const cardPattern = /^[0-9]{16}$/;
+  if (!cardPattern.test(card)) {
+    alert("Please enter a valid 16-digit card number.");
+    event.preventDefault();
+    return false;
+  }
+
+  // === Validate Expiry Date (MM/YY format) ===
+  const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+  if (!expiryPattern.test(expiry)) {
+    alert("Please enter expiry in MM/YY format (e.g., 05/28).");
+    event.preventDefault();
+    return false;
+  }
+
+  // Optional: Check if card is expired
+  const [month, year] = expiry.split('/').map(x => parseInt(x, 10));
+  const now = new Date();
+  const expiryDate = new Date(2000 + year, month);
+  if (expiryDate < now) {
+    alert("This card is expired. Please use a valid expiry date.");
+    event.preventDefault();
+    return false;
+  }
+
+  // === Validate CVV (must be exactly 3 digits) ===
+  const cvvPattern = /^[0-9]{3}$/;
+  if (!cvvPattern.test(cvv)) {
+    alert("Please enter a valid 3-digit CVV.");
+    event.preventDefault();
+    return false;
+  }
+
+  // === Optional: Restrict non-numeric typing for all payment fields ===
+  ['cardNumber', 'cvv', 'expiryDate'].forEach(id => {
+    const field = document.getElementById(id);
+    field.addEventListener('keypress', function(e) {
+      if (!/[0-9]/.test(e.key) && e.key !== '/') e.preventDefault();
+    });
+  });
+
+  // If all good, allow submission
+  return true;
+});
+</script>
+
+
+    <div class="form-group">
+<label for="fullName">Full Name</label>
+<input id="fullName" name="full_name" placeholder="Enter your full name" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="email">Email Address</label>
+<input id="email" name="email" placeholder="Enter your email" required="" type="email"/>
+</div>
+<div class="form-group">
+<label for="phone">Phone</label>
+<input id="phone" name="phone" placeholder="Enter your phone number" required="" type="text"/>
+</div>
+<h3>Payment Details</h3>
+<div class="form-group">
+<label for="cardNumber">Card Number</label>
+<input id="cardNumber" name="card_number" placeholder="1234 5678 9012 3456" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="expiryDate">Expiry Date</label>
+<input id="expiryDate" name="expiry_date" placeholder="MM/YY" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="cvv">CVV</label>
+<input id="cvv" name="cvv" placeholder="123" required="" type="text"/>
+</div>
+<!-- Hidden payload fields to send cart -->
+<input id="cartLines" name="cart_lines" type="hidden"/>
+<input id="totalPrice" name="total_price" type="hidden"/>
+<input id="guestCheckout" name="guest_checkout" type="hidden" value="0"/>
+<button class="btn" type="submit">Complete Purchase</button> 
+</form>
+</div>
+</section>
+<script src="cart-store.js"></script>
+<script src="cart-badge.js"></script>
+<script>
+    // Helper: format cart into simple pipe-delimited lines 
+    function buildCartPayload() {
+        try {
+            var cart = readCartArr(); // from cart-store.js (localStorage)
+            if (!Array.isArray(cart) || cart.length === 0) {
+                return { lines: '', total: 0 };
+            }
+            var lines = []; // Holds formatted cart items
+            var total = 0; // Holds grand total
+            for (var i = 0; i < cart.length; i++) {
+                var item = cart[i] || {};
+                var name = (item.showName || '').toString().replace(/\|\|/g, ' ');
+                var showtime = (item.showtime || '').toString().replace(/\|\|/g, ' ');
+                var qty = parseInt(item.quantity, 10) || 1;
+                var price = parseFloat(item.price) || 0;
+                total += qty * price;
+                // Line format: name||showtime||qty||price
+                lines.push(name + '||' + showtime + '||' + qty + '||' + price.toFixed(2));
+            }
+            return { lines: lines.join('\n'), total: total.toFixed(2) };
+        } catch (e) {
+            return { lines: '', total: 0 };
+        }
+    }
+   
+    // Attach event to fill hidden fields before submitting to PHP
+    document.getElementById('checkoutForm').addEventListener('submit', function(e){
+        // Fill hidden inputs before native POST submit
+        var payload = buildCartPayload();
+        document.getElementById('cartLines').value = payload.lines;
+        document.getElementById('totalPrice').value = payload.total;
+        // allow normal submit to checkout.php
+    });
+    </script>
+<script>
+    // Guest checkout link toggles hidden flag
+    (function(){
+      var link = document.getElementById('guestLink');
+      if (link) {
+        link.addEventListener('click', function(e){
+          e.preventDefault();
+          var fld = document.getElementById('guestCheckout');
+          if (fld) fld.value = '1';
+          // Optionally scroll to the form
+          var form = document.getElementById('checkoutForm');
+          if (form) form.scrollIntoView({behavior:'smooth'});
+        });
+      }
+    })();
+    </script>
+</body>
+</html>

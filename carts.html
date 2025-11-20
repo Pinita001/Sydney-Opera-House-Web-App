@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Sydney Opera House</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="logos.png" alt="Sydney Opera House" class="logo">
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="shows.html" class="nav-link">Shows</a></li>
+                <li class="nav-item">
+                    <a href="carts.html" class="nav-link active">
+                        Cart
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item"><a href="experiences.html" class="nav-link" data-page="experiences">Experiences</a></li>
+                <li class="nav-item"><a href="account.html" class="nav-link">Account</a></li>
+                <li class="nav-item"><a href="recommend.html" class="nav-link">Recommends</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="cart-container">
+        <div class="container">
+            <h2 class="section-title">Your <span>Cart</span></h2>
+            
+            <!-- Cart table where items will appear -->
+            <table class="cart-table" id="cartTable">
+                <thead>
+                    <tr>
+                        <th>Show</th>
+                        <th>Showtime</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items-body">
+                    </tbody>
+            </table>
+
+            <!-- Checkout button (disabled until there are items) -->
+            <div class="cart-summary">
+                <div class="summary-line">
+                    <span>Total Items:</span>
+                    <span id="totalItems">0</span>
+                </div>
+                <div class="summary-line total-price-line">
+                    <strong>Estimated Total:</strong>
+                    <strong id="cartTotal">$0.00</strong>
+                </div>
+                <!-- Checkout button (disabled until there are items) -->
+                <button class="btn primary-btn checkout-btn" id="checkoutBtn" disabled>Proceed to Checkout</button> 
+            </div>
+            
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Sydney Opera House</h3>
+                <p>Bennelong Point<br>Sydney NSW 2000<br>Australia</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="shows.html">What's On</a></li>
+                    <li><a href="account.html">My Account</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- External scripts that handle localStorage cart saving and badge updates -->
+    <script src="cart-store.js"></script>
+    <script src="cart-badge.js"></script>
+    <script>
+        // Get cart data saved in localStorage
+        let cart = readCartArr(); // Load cart items from localStorage using helper function from cart-store.js
+        const cartBody = document.getElementById('cart-items-body'); // <tbody> element to insert cart rows
+        const cartTotalDisplay = document.getElementById('cartTotal'); // Total price <strong> tag
+        const totalItemsDisplay = document.getElementById('totalItems'); // Total item count span
+        const checkoutBtn = document.getElementById('checkoutBtn'); // Checkout button reference
+        let grandTotal = 0; // Stores total price of all items
+        let totalQuantity = 0; // Stores total quantity of all items
+
+        // This function updates the entire cart display (table + totals)
+        function renderCart() {
+            cartBody.innerHTML = ''; // Clear previous table rows before adding new ones
+            grandTotal = 0; // Reset total price
+            totalQuantity = 0; // Reset item count
+
+            // If cart is empty, show a simple message
+            if (cart.length === 0) {
+                cartBody.innerHTML = '<tr><td colspan="6" class="empty-cart-message">Your cart is empty. <a href="shows.html">Go shopping!</a></td></tr>';
+                
+                // Explicitly set totals to zero when the cart is empty
+                cartTotalDisplay.textContent = '$0.00';
+                totalItemsDisplay.textContent = '0';
+                checkoutBtn.disabled = true; // Disable checkout when cart is empty
+                return; // Stop function execution
+            }
+
+            // Loop through each saved item and create a row
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.quantity; // Calculate subtotal for each row
+                grandTotal += subtotal; // Add subtotal to the running total
+                totalQuantity += item.quantity; // Add item quantity to total items count
+
+                 // Create a new <tr> for each item
+                const row = document.createElement('tr');
+                row.setAttribute('data-index', index); // Store index for future edits/removals
+                
+                // Template for each cart row
+                row.innerHTML = `
+                    <td>${item.showName}</td>
+                    <td>${item.showtime}</td>
+                    <td>$${item.price.toFixed(2)}</td>
+                    <td>
+                        <input type="number" class="quantity-input" value="${item.quantity}" min="1" max="10">
+                    </td>
+                    <td>$${subtotal.toFixed(2)}</td>
+                    <td><button class="btn remove-btn" data-index="${index}">🗑️</button></td>
+                `;
+                cartBody.appendChild(row); // Add row into the table body
+            });
+
+            // Update totals and enable checkout button
+            cartTotalDisplay.textContent = `$${grandTotal.toFixed(2)}`;
+            totalItemsDisplay.textContent = totalQuantity;
+            checkoutBtn.disabled = false;
+        }
+
+        document.addEventListener('DOMContentLoaded', renderCart);
+
+        // Detects when a user changes the quantity input in the cart
+        cartBody.addEventListener('change', function(e) {
+            if (e.target.classList.contains('quantity-input')) {
+                const input = e.target;
+                const newQuantity = parseInt(input.value);
+                const index = input.closest('tr').getAttribute('data-index');
+
+                // Validate input (must be at least 1)
+                if (newQuantity < 1 || isNaN(newQuantity)) {
+                    input.value = cart[index].quantity; // Revert to previous value
+                    alert("Quantity must be at least 1.");
+                    return;
+                }
+                
+                // Update quantity and save changes back to localStorage
+                cart[index].quantity = newQuantity;
+                writeCartArr(cart); // Save updated array to storage
+                renderCart(); // Re-render to update subtotals and totals
+                if (typeof updateCartBadge === 'function') {
+                    updateCartBadge(); // Refresh cart badge count
+                }
+            }
+        });
+
+        // Detects when the trash icon is clicked and removes that item
+        cartBody.addEventListener('click', function(e) {
+            if (e.target.closest('.remove-btn')) { // If user clicked the trash button
+                const button = e.target.closest('.remove-btn');
+                const index = parseInt(button.getAttribute('data-index')); // Find which item to delete
+
+                // Remove item from array using splice
+                cart.splice(index, 1);
+                writeCartArr(cart); // Save updated cart
+                
+                // Update the cart badge right away
+                if (typeof updateCartBadge === 'function') { // Update badge
+                    updateCartBadge();
+                }
+
+                renderCart(); // Re-render the cart table and update totals
+            }
+        });
+
+        // When user clicks “Proceed to Checkout”, go to checkout.html
+        document.getElementById('checkoutBtn').onclick = function() {
+            if (cart.length > 0) {
+                window.location.href = 'checkout.html'; // Redirect to the checkout page
+            }
+        };
+    </script>
+    
+    <script>
+        // If redirected with ?success=1 in the URL, show a green success message
+document.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('success') === '1') { // Check for ?success=1
+    const msg = document.createElement('div'); // Create a message box
+    msg.textContent = 'Booking successful!'; // Text to display
+    msg.style.background = '#d4edda';
+    msg.style.color = '#155724';
+    msg.style.padding = '12px 16px';
+    msg.style.margin = '10px auto';
+    msg.style.textAlign = 'center';
+    msg.style.border = '1px solid #c3e6cb';
+    msg.style.borderRadius = '6px';
+    msg.style.maxWidth = '500px';
+    // Insert it at the top of the page
+    document.body.insertBefore(msg, document.body.firstChild);
+  }
+});
+</script>
+
+
+</body>
+</html>

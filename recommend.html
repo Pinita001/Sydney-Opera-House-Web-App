@@ -1,0 +1,310 @@
+<!DOCTYPE html> <!-- Defines the document as HTML5 -->
+<html lang="en"> <!-- Page language set to English -->
+<head>
+  <meta charset="UTF-8" /> <!-- Sets text encoding to UTF-8 for all characters -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Ensures mobile responsiveness -->
+  <title>AI Show Recommender - Sydney Opera House</title> <!-- Page title on browser tab -->
+
+  <link rel="stylesheet" href="styles.css"> <!-- Links to main site-wide stylesheet -->
+  <script src="https://cdn.tailwindcss.com"></script> <!-- Loads Tailwind CSS (modern UI framework) -->
+
+  <style>
+    /* --- Animation & UI Styles specific to this page --- */
+
+    /* Fade-in effect for each question block */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s, transform .6s;
+    }
+
+    /* When scrolled into view, make element visible */
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Loader animation with bouncing dots (AI analyzing effect) */
+    .loader-dots span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin: 0 2px;
+      background-color: #6366f1;
+      border-radius: 50%;
+      animation: bounce 1s infinite;
+    }
+
+    /* Slight delay for each dot to create smooth bounce */
+    .loader-dots span:nth-child(2) { animation-delay: .2s; }
+    .loader-dots span:nth-child(3) { animation-delay: .4s; }
+
+    /* Keyframe for bouncing animation */
+    @keyframes bounce {
+      0%,80%,100% { transform: scale(0); }
+      40% { transform: scale(1.2); }
+    }
+
+    /* Emotion text label styling under each slider */
+    .emotion-label {
+      margin-top: .5rem;
+      text-align: center;
+      font-weight: 500;
+      color: #4f46e5;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ================= HEADER SECTION ================= -->
+  <header>
+    <div class="nav-container"> <!-- Container for header layout -->
+      <div class="logo-container"> <!-- Left section: logo -->
+        <img src="logos.png" alt="Sydney Opera House" class="logo"> <!-- Logo image -->
+      </div>
+
+      <!-- Navigation Menu -->
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li> <!-- Home link -->
+        <li class="nav-item"><a href="shows.html" class="nav-link">Shows</a></li> <!-- Shows page -->
+        <li class="nav-item">
+          <!-- Cart link with badge showing total items -->
+          <a href="carts.html" class="nav-link" data-page="cart">
+            Cart
+            <span class="cart-badge" id="cartBadge">0</span> <!-- Dynamic cart count -->
+          </a>
+        </li>
+        <li class="nav-item"><a href="experiences.html" class="nav-link">Experiences</a></li> <!-- Experiences tab -->
+        <li class="nav-item"><a href="account.html" class="nav-link">Account</a></li> <!-- Account tab -->
+        <li class="nav-item"><a href="recommend.html" class="nav-link active">Recommends</a></li> <!-- Active page -->
+      </ul>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="max-w-5xl mx-auto p-8"> <!-- Tailwind: centers page, adds padding -->
+    <h1 class="text-4xl font-bold text-center text-indigo-900 mb-4">🎭 Find Your Perfect Show</h1> <!-- Page heading -->
+    <p class="text-center text-gray-600 mb-10">
+      Adjust the sliders and preferences — our AI assistant will read your vibe and recommend your next Sydney Opera House experience.
+    </p>
+
+    <!-- Main questionnaire card -->
+    <div class="bg-white p-8 rounded-2xl shadow-lg space-y-10">
+      
+      <!-- Question 1 -->
+      <div class="fade-in">
+        <h2 class="text-lg font-semibold mb-3">1️⃣ How much drama do you enjoy?</h2>
+        <input type="range" min="0" max="10" value="0" id="drama" class="w-full accent-indigo-600"> <!-- Slider input -->
+        <div id="dramaMood" class="emotion-label">Lighthearted 😄</div> <!-- Label updates live -->
+      </div>
+
+      <!-- Question 2 -->
+      <div class="fade-in">
+        <h2 class="text-lg font-semibold mb-3">2️⃣ How musical do you want it to be?</h2>
+        <input type="range" min="0" max="10" value="0" id="music" class="w-full accent-indigo-600">
+        <div id="musicMood" class="emotion-label">Quiet 🎭</div>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="fade-in">
+        <h2 class="text-lg font-semibold mb-3">3️⃣ What energy level are you feeling?</h2>
+        <input type="range" min="0" max="10" value="0" id="energy" class="w-full accent-indigo-600">
+        <div id="energyMood" class="emotion-label">Relaxed 🎻</div>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="fade-in">
+        <h2 class="text-lg font-semibold mb-3">4️⃣ What kind of vibe are you in the mood for?</h2>
+        <select id="mood" class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-400"> <!-- Dropdown -->
+          <option value="">Select a mood</option>
+          <option value="romantic">Romantic 💕</option>
+          <option value="family">Family-Friendly 👨‍👩‍👧‍👦</option>
+          <option value="adventurous">Adventurous ✨</option>
+          <option value="artistic">Artistic 🎨</option>
+        </select>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="fade-in">
+        <h2 class="text-lg font-semibold mb-3">5️⃣ How long of a show do you prefer?</h2>
+        <input type="range" min="0" max="10" value="0" id="length" class="w-full accent-indigo-600">
+        <div id="lengthMood" class="emotion-label">Short & Sweet ⏱</div>
+      </div>
+
+      <!-- Question 6 -->
+      <div class="fade-in">
+        <h2 class="text-lg font-semibold mb-3">6️⃣ Do you prefer indoor or outdoor performances?</h2>
+        <select id="setting" class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+          <option value="">Choose your preference</option>
+          <option value="indoor">Indoor Theatre 🎟️</option>
+          <option value="outdoor">Outdoor Stage 🌅</option>
+        </select>
+      </div>
+
+      <!-- Button to trigger recommendation -->
+      <div class="text-center">
+        <button id="getRecBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-8 rounded-full font-semibold transition">
+          Get My Recommendation
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading animation (appears while AI is "thinking") -->
+    <div id="loadingAI" class="hidden mt-10 text-center">
+      <h2 class="text-xl font-semibold text-indigo-700">🤖 Analyzing your preferences...</h2>
+      <div class="loader-dots mt-3"><span></span><span></span><span></span></div> <!-- Bouncing dots -->
+    </div>
+
+    <!-- AI Result Card (displayed after recommendation) -->
+    <div id="resultCard" class="hidden bg-indigo-50 border-l-4 border-indigo-500 p-8 rounded-xl shadow text-center mt-10">
+      <h2 id="resultTitle" class="text-2xl font-bold text-indigo-700 mb-2"></h2> <!-- Recommended show title -->
+      <p id="resultDesc" class="text-gray-700 mb-4"></p> <!-- Short description -->
+      <img id="resultImg" src="" alt="" class="mx-auto rounded-xl shadow-md w-64 h-40 object-cover mb-4"> <!-- Thumbnail -->
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Sydney Opera House</h3>
+        <p>Bennelong Point<br>Sydney NSW 2000<br>Australia</p>
+      </div>
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="shows.html">What's On</a></li>
+          <li><a href="account.html">My Account</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT FUNCTIONALITY ================= -->
+  <script>
+    /* === Emotion labels for each slider === */
+    const moods = {
+      drama: ["Lighthearted 😄","Engaging 🙂","Emotional 😢","Serious 😐","Intense 😭"],
+      music: ["Quiet 🎭","Melodic 🎶","Lively 🎤","Musical 🎵","Full Orchestra 🎼"],
+      energy: ["Relaxed 🎻","Calm 😌","Active 🎬","Exciting ⚡","High Energy 💃"],
+      length: ["Short & Sweet ⏱","Medium 🎟️","Long 🎞️","Epic 🎥","Grand Performance 🎬"]
+    };
+
+    /* Updates emotion text below slider live */
+    function liveLabel(id, label, arr) {
+      const s = document.getElementById(id), l = document.getElementById(label);
+      s.addEventListener("input", () => {
+        const v = Math.floor(s.value / 2); // Convert slider value 0–10 into 0–4 index
+        l.textContent = arr[Math.min(v, arr.length - 1)]; // Change text based on value
+      });
+    }
+
+    // Connect each slider with its label
+    liveLabel("drama", "dramaMood", moods.drama);
+    liveLabel("music", "musicMood", moods.music);
+    liveLabel("energy", "energyMood", moods.energy);
+    liveLabel("length", "lengthMood", moods.length);
+
+    /* === Fade-in animation setup === */
+    const obs = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible'); // Add visible class when seen
+    }));
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el)); // Observe all fade-in elements
+
+    /* === Dataset of all available shows (with attributes) === */
+    const shows = [
+      {title:"La Traviata",desc:"A passionate romantic opera for emotional souls.",img:"show1.png",ideal:{drama:9,music:8,energy:4,length:8,setting:"indoor",mood:"romantic"}},
+      {title:"Swan Lake",desc:"A classic romantic ballet full of grace.",img:"show2.png",ideal:{drama:7,music:5,energy:5,length:8,setting:"indoor",mood:"romantic"}},
+      {title:"Sydney Symphony Orchestra",desc:"A serene orchestral experience for calm minds.",img:"show3.png",ideal:{drama:2,music:9,energy:2,length:7,setting:"indoor",mood:"artistic"}},
+      {title:"The Phantom of the Opera",desc:"A haunting musical masterpiece of love and mystery.",img:"show4.png",ideal:{drama:9,music:9,energy:6,length:9,setting:"indoor",mood:"romantic"}},
+      {title:"Sydney Dance Company",desc:"Modern dance that pushes visual and emotional limits.",img:"show5.png",ideal:{drama:5,music:6,energy:8,length:5,setting:"indoor",mood:"artistic"}},
+      {title:"A Midsummer Night's Dream",desc:"A whimsical and charming play for families.",img:"show6.png",ideal:{drama:6,music:2,energy:5,length:7,setting:"indoor",mood:"family"}},
+      {title:"Tame Impala",desc:"A psychedelic outdoor concert with vibrant energy.",img:"show7.png",ideal:{drama:4,music:10,energy:10,length:5,setting:"outdoor",mood:"adventurous"}},
+      {title:"Cirque du Soleil: LUZIA",desc:"An imaginative, high-energy circus under the stars.",img:"show8.png",ideal:{drama:7,music:6,energy:9,length:7,setting:"outdoor",mood:"adventurous"}},
+      {title:"Chicago The Musical",desc:"A high-tempo jazz musical full of sass and style.",img:"show10.png",ideal:{drama:8,music:9,energy:8,length:7,setting:"indoor",mood:"artistic"}},
+      {title:"Sydney Film Festival",desc:"An artistic showcase for film lovers.",img:"show11.png",ideal:{drama:7,music:3,energy:3,length:6,setting:"indoor",mood:"artistic"}},
+      {title:"Australian Chamber Orchestra",desc:"A night of refined classical beauty.",img:"show12.png",ideal:{drama:2,music:9,energy:3,length:6,setting:"indoor",mood:"artistic"}},
+      {title:"Matilda The Musical",desc:"A heartwarming, family-friendly musical full of humor.",img:"show13.png",ideal:{drama:4,music:8,energy:7,length:6,setting:"indoor",mood:"family"}}
+    ];
+
+    /* === Main AI Recommendation Logic === */
+    document.getElementById("getRecBtn").addEventListener("click", () => {
+      // Capture all user inputs
+      const vals = {
+        drama: +document.getElementById("drama").value,
+        music: +document.getElementById("music").value,
+        energy: +document.getElementById("energy").value,
+        length: +document.getElementById("length").value,
+        setting: document.getElementById("setting").value,
+        mood: document.getElementById("mood").value
+      };
+
+      // Reference to loading and result elements
+      const loader = document.getElementById("loadingAI"),
+            card = document.getElementById("resultCard"),
+            title = document.getElementById("resultTitle"),
+            desc = document.getElementById("resultDesc"),
+            img = document.getElementById("resultImg");
+
+      // Show loading animation
+      loader.classList.remove("hidden");
+      card.classList.add("hidden");
+
+      // Simulate 2-second AI “thinking” delay
+      setTimeout(() => {
+        loader.classList.add("hidden"); // Hide loader
+
+        // Variables to store best-matching show
+        let best = null, bestScore = -Infinity;
+
+        // Compare each show’s ideal profile with user inputs
+        shows.forEach(show => {
+          let score = 0;
+          score += 10 - Math.abs(show.ideal.drama - vals.drama);
+          score += 10 - Math.abs(show.ideal.music - vals.music);
+          score += 10 - Math.abs(show.ideal.energy - vals.energy);
+          score += 10 - Math.abs(show.ideal.length - vals.length);
+          if (show.ideal.setting === vals.setting) score += 5;
+          if (show.ideal.mood === vals.mood) score += 5;
+          if (score > bestScore) { bestScore = score; best = show; } // Keep highest score
+        });
+
+        // Display best match on screen
+        title.textContent = `✨ We Recommend: ${best.title}`;
+        desc.textContent = best.desc;
+        img.src = best.img;
+
+        // Map shows to their <details id="details-X"> in shows.html
+        const showIdMap = {
+          "La Traviata":1,"Swan Lake":2,"Sydney Symphony Orchestra":3,"Matilda The Musical":4,
+          "The Phantom of the Opera":5,"Sydney Dance Company":6,"A Midsummer Night's Dream":7,
+          "Tame Impala":8,"Cirque du Soleil: LUZIA":9,"Chicago The Musical":10,
+          "Sydney Film Festival":11,"Australian Chamber Orchestra":12
+        };
+
+        // Find correct ID or default to 1
+        const openId = showIdMap[best.title] || 1;
+
+        // Remove old button if user re-runs test
+        const old = document.querySelector("#resultCard a");
+        if (old) old.remove();
+
+        // Create "View Show" button linking to the correct show on shows.html
+        const link = document.createElement("a");
+        link.href = `shows.html?open=${openId}`; // ?open= triggers highlight via shows-ui-fix.js
+        link.textContent = "View Show";
+        link.className = "bg-indigo-600 text-white py-2 px-5 rounded-full hover:bg-indigo-700";
+        card.appendChild(link);
+
+        // Reveal final result card
+        card.classList.remove("hidden");
+        window.scrollTo({ top: card.offsetTop, behavior: "smooth" }); // Scroll smoothly to result
+      }, 2000); // 2-second analysis delay
+    });
+  </script>
+
+  <!-- External scripts to handle cart and badge count -->
+  <script src="cart-store.js"></script>
+  <script src="cart-badge.js"></script>
+</body>
+</html>

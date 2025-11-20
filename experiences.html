@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Experiences - Sydney Opera House</title>
+<link href="styles.css" rel="stylesheet"/>
+<style>.tabs{display:none} 
+        .intro-card figcaption{padding:12px 10px;font-weight:700;color:var(--dark);} 
+        .intro-card{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,0.12);text-align:center;} 
+        .intro-card img{width:100%;height:200px;object-fit:cover;display:block;}
+</style>
+</head>
+<body>
+<header>
+<div class="nav-container">
+<div class="logo-container">
+<img alt="Sydney Opera House" class="logo" src="logos.png"/>
+</div>
+<ul class="nav-menu">
+<li class="nav-item"><a class="nav-link" data-page="home" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" data-page="shows" href="shows.html">Shows</a></li>
+<li class="nav-item">
+<a class="nav-link" data-page="cart" href="carts.html">
+            Cart <span class="cart-badge" id="cartBadge">0</span>
+</a>
+</li>
+<li class="nav-item"><a class="nav-link active" data-page="experiences" href="experiences.html">Experiences</a></li>
+<li class="nav-item"><a class="nav-link" data-page="account" href="account.html">Account</a></li>
+<li class="nav-item"><a href="recommend.html" class="nav-link">Recommends</a></li>
+</ul>
+</div>
+</header>
+<section class="container">
+<h2 class="section-title">Experiences</h2>
+<!-- Tabs -->
+<div aria-label="Experiences Tabs" class="tabs" role="tablist">
+<button aria-controls="panel-tours" aria-selected="false" class="tab-btn" id="tab-tours" role="tab">Tours &amp; Experiences</button>
+<button aria-controls="panel-dining" aria-selected="false" class="tab-btn" id="tab-dining" role="tab">Dining &amp; Private Events</button>
+<button aria-controls="panel-calendar" aria-selected="false" class="tab-btn" id="tab-calendar" role="tab">Events Calendar</button>
+</div>
+<!-- Intro images (visible until a tab is selected) -->
+<div aria-hidden="false" class="tab-intro" id="tabIntro"><a class="intro-link" data-target="panel-tours" href="#panel-tours"><figure class="intro-card">  <!-- intro cards shown before a tab is selected -->
+<img alt="Backstage Tours" src="tour.png"/>
+<figcaption>Tours &amp; Experiences</figcaption></figure></a><a class="intro-link" data-target="panel-dining" href="#panel-dining"><figure class="intro-card"> <!-- intro card component -->
+<img alt="Dining with harbour views" src="dining.png"/>
+<figcaption>Dining &amp; Private Events</figcaption></figure></a><a class="intro-link" data-target="panel-calendar" href="#panel-calendar"><figure class="intro-card">
+<img alt="Events calendar" src="calendar.png"/>
+<figcaption>Events Calendar</figcaption></figure></a></div>
+<!-- Panel: Tours & Experiences -->
+<div aria-labelledby="tab-tours" class="tab-panel" id="panel-tours" role="tabpanel">
+<div class="show-grid">
+<div class="show-card">
+<img alt="Backstage Tour" class="show-image" src="backstage.png"/>
+<div class="show-info">
+<h3>Backstage Tour</h3>
+<p>Go behind the curtains and explore the inner workings of the Opera House.</p>
+<div class="show-price">$60.00</div>
+<div class="show-actions">
+<select class="showtime-select">
+<option value="">Select a time</option>
+<option value="Daily - 10:00 AM - $60.00">Daily, 10:00 AM</option>
+<option value="Daily - 2:00 PM - $60.00">Daily, 2:00 PM</option>
+</select>
+<div class="quantity-add-to-cart">
+<input class="quantity-input" max="10" min="1" type="number" value="1"/>
+<button class="btn add-to-cart-btn" onclick="addExperienceToCart(this)">Add to Cart</button> <!-- button to add selected experience to cart -->
+</div>
+</div>
+</div>
+</div>
+<div class="show-card">
+<img alt="Harbour Cruise" class="show-image" src="cruise.png"/>
+<div class="show-info">
+<h3>Harbour Cruise</h3>
+<p>Enjoy a scenic cruise with breathtaking views of the Sydney Harbour.</p>
+<div class="show-price">$85.00</div>
+<div class="show-actions">
+<select class="showtime-select">
+<option value="">Select a time</option>
+<option value="Weekends - 11:00 AM - $85.00">Weekends, 11:00 AM</option>
+<option value="Weekends - 4:00 PM - $85.00">Weekends, 4:00 PM</option>
+</select>
+<div class="quantity-add-to-cart">
+<input class="quantity-input" max="10" min="1" type="number" value="1"/>
+<button class="btn add-to-cart-btn" onclick="addExperienceToCart(this)">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<div class="show-card">
+<img alt="Architecture Walk" class="show-image" src="archi.png"/>
+<div class="show-info">
+<h3>Architecture Walk</h3>
+<p>Guided tour focusing on the iconic design and engineering of the Opera House.</p>
+<div class="show-price">$45.00</div>
+<div class="show-actions">
+<select class="showtime-select">
+<option value="">Select a time</option>
+<option value="Tue/Thu - 1:00 PM - $45.00">Tue/Thu, 1:00 PM</option>
+<option value="Sat - 3:00 PM - $45.00">Sat, 3:00 PM</option>
+</select>
+<div class="quantity-add-to-cart">
+<input class="quantity-input" max="10" min="1" type="number" value="1"/>
+<button class="btn add-to-cart-btn" onclick="addExperienceToCart(this)">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Panel: Dining & Private Events -->
+<div aria-labelledby="tab-dining" class="tab-panel" id="panel-dining" role="tabpanel">
+<section class="content-box-section">
+<div class="login-required">
+<div class="login-callout" style="max-width:720px;margin:16px auto;padding:16px;border:1px solid #ddd;border-radius:8px;background:#fffbe6;">
+<h3 style="margin:0 0 8px;">Please log in to make a reservation</h3>
+<p style="margin:0 0 12px;color:#444;">Reservations are available to logged-in users so we can save them under <strong>My Reservations</strong>.</p>
+<p style="margin:0;">
+<a class="btn" href="account.html" style="display:inline-block;padding:10px 14px;border:1px solid #111;border-radius:6px;text-decoration:none;">Go to Login</a>
+</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Panel: Events Calendar -->
+<div aria-labelledby="tab-calendar" class="tab-panel" id="panel-calendar" role="tabpanel">
+<section class="content-split-section">
+<div class="container" style="padding:0;">
+<div class="login-options" id="calendarControls" style="margin-top:0;">
+<button class="btn" id="prevMonthBtn" type="button">«</button>
+<strong id="calendarTitle" style="margin:0 15px;"></strong>
+<button class="btn" id="nextMonthBtn" type="button">»</button>
+</div>
+<table aria-label="Events Calendar" class="cart-table" id="calendarTable">
+<thead>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+</thead>
+<tbody id="calendarBody"></tbody> <!-- calendar body where days are rendered -->
+</table>
+<p style="text-align:center;color:#666">Click a highlighted date to view shows.</p>
+</div>
+</section>
+</div>
+</section>
+<footer>
+<div class="footer-content">
+<div class="footer-column">
+<h3>Sydney Opera House</h3>
+<p>Bennelong Point<br/>Sydney NSW 2000<br/>Australia</p>
+</div>
+<div class="footer-column">
+<h3>Quick Links</h3>
+<ul class="footer-links">
+<li><a href="shows.html">What's On</a></li>
+<li><a href="account.html">My Account</a></li>
+</ul>
+</div>
+</div>
+</footer>
+<script src="cart-store.js"></script>
+<script src="cart-badge.js"></script>
+<script src="shows-dates.js"></script>
+<script>
+    // Tabs logic: show a panel only when its tab is pressed (no default active)
+    (function(){
+      var tabs = [ // array of tab button/panel pairs
+        {btnId:'tab-tours', panelId:'panel-tours'},
+        {btnId:'tab-dining', panelId:'panel-dining'},
+        {btnId:'tab-calendar', panelId:'panel-calendar'}
+      ];
+      function clearActive(){ // helper to deactivate intro and all tabs/panels
+        var intro = document.getElementById('tabIntro');
+        if (intro) { intro.style.display = 'none'; intro.setAttribute('aria-hidden','true'); }
+        tabs.forEach(function(t){
+          var b = document.getElementById(t.btnId);
+          var p = document.getElementById(t.panelId);
+          if (b) { b.classList.remove('active'); b.setAttribute('aria-selected','false'); }
+          if (p) { p.classList.remove('active'); }
+        });
+      }
+      tabs.forEach(function(t){
+        var b = document.getElementById(t.btnId);
+        var p = document.getElementById(t.panelId);
+        if (b && p){
+          b.addEventListener('click', function(){
+            clearActive();
+            b.classList.add('active'); b.setAttribute('aria-selected','true');
+            p.classList.add('active');
+          });
+        }
+      });
+    })();
+
+    function addExperienceToCart(buttonElement) {
+      const card = buttonElement.closest('.show-card'); // locate the card container for the clicked button
+      const title = card.querySelector('h3').textContent; // extract experience title
+      const select = card.querySelector('.showtime-select');  // get the time-slot dropdown
+      const quantityInput = card.querySelector('.quantity-input');
+      const selected = select.options[select.selectedIndex].value;
+      const qty = parseInt(quantityInput.value, 10);
+
+      if (!selected) { alert('Please select a time.'); return; } // validation: require a selected time
+      if (!qty || qty < 1) { alert('Please enter a valid quantity.'); return; } // validation: require valid quantity
+
+      const parts = selected.split(' - '); // split selected value to extract when and price
+      const when = parts[0] + ' ' + parts[1];
+      const priceStr = (parts[2] || '$0.00').replace(' (Matinee)','');
+      const price = parseFloat(priceStr.replace('$','')) || 0; // parse the price from string to number
+
+      const item = { showName: title, showtime: when, quantity: qty, price: price };
+      const cart = readCartArr(); cart.push(item); writeCartArr(cart); // read current cart array from localStorage
+      if (typeof updateCartBadge === 'function') updateCartBadge(); // refresh cart badge count if function exists
+      alert('Added to cart!');
+    }
+
+      // --- Calendar logic with month toggle & clickable show dates -> shows.html
+    const calTitle = document.getElementById('calendarTitle'); // grab reference to calendar title element
+    const calBody  = document.getElementById('calendarBody'); 
+    let viewYear = 2025, viewMonth = 10; // Start at May 2025 // state: current view year/month for calendar
+ 
+    function renderCalendar(y,m){ // renders a month grid into the calendar table body
+      const first = new Date(y, m, 1); // first day of the given month
+      const last  = new Date(y, m+1, 0); // last day (date 0 of next month)
+      calTitle.textContent = first.toLocaleString(undefined, { month: 'long', year: 'numeric' }); // format month/year label from Date
+      calBody.innerHTML = ''; 
+ 
+      let row = document.createElement('tr'); 
+      for (let i=0;i<first.getDay();i++){ // weekday offset before day 1
+        row.appendChild(document.createElement('td')); 
+      } 
+ 
+      for (let d=1; d<=last.getDate(); d++){ // loop through each day of the month
+        if (row.children.length === 7){ 
+          calBody.appendChild(row); 
+          row = document.createElement('tr'); 
+        } 
+        const td = document.createElement('td'); 
+        td.setAttribute('data-date', (y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0')) ); // store full date string on cell for later use
+td.textContent = d; 
+ 
+        const key = y + '-' + String(m+1).padStart(2,'0') + '-' + String(d).padStart(2,'0'); 
+        if (window.SHOWS_DATES && window.SHOWS_DATES.has(key)){ // highlight cells that have shows
+          td.style.fontWeight = '700'; 
+          td.style.background = 'var(--highlight-bg)'; 
+          td.style.boxShadow = 'inset 0 0 0 2px var(--highlight-glow)'; 
+          td.style.cursor = 'pointer'; 
+          td.setAttribute('title','View shows for ' + key); 
+          td.addEventListener('click', function(){ 
+            // Navigate to the Shows page (
+            window.location.href = 'shows.html'; 
+          }); 
+        } 
+        row.appendChild(td); 
+      } 
+      while (row.children.length < 7){ 
+        row.appendChild(document.createElement('td')); 
+      } 
+      calBody.appendChild(row); 
+    } 
+ 
+    document.getElementById('prevMonthBtn').addEventListener('click', function(){ // previous month button handler
+      viewMonth--; if (viewMonth < 0){ viewMonth = 11; viewYear--; } renderCalendar(viewYear, viewMonth); // initial calendar render
+    }); 
+    document.getElementById('nextMonthBtn').addEventListener('click', function(){ // next month button handler
+      viewMonth++; if (viewMonth > 11){ viewMonth = 0; viewYear++; } renderCalendar(viewYear, viewMonth); // initial calendar render
+    }); 
+ 
+    // Do not render until calendar tab is opened; however it's okay to pre-render.
+    renderCalendar(viewYear, viewMonth); // initial calendar render
+  </script>
+<script> /* begin script block */
+// Map calendar dates to show IDs for deep-link highlight
+window.__DATE_TO_SHOWID__ = { // mapping from YYYY-MM-DD to a specific show id
+  '2025-11-10': 1, '2025-11-11': 1, '2025-11-14': 1, 
+  '2025-11-18': 2, '2025-11-19': 2, '2025-11-21': 2, 
+  '2025-11-25': 3, '2025-11-26': 3, 
+  '2025-12-05': 4, '2025-12-07': 4, 
+  '2025-12-12': 5, '2025-12-13': 5, 
+  '2026-01-02': 6, '2026-01-03': 6, 
+  '2026-02-10': 7, '2026-02-11': 7, 
+  '2026-03-05': 8, 
+  '2026-04-10': 9, '2026-04-11': 9, 
+  '2026-05-01': 10, '2026-05-02': 10, 
+  '2026-06-20': 12, '2026-06-21': 12, 
+  '2026-06-01': 11, '2026-06-02': 11 
+}; 
+ 
+// Enhance calendar cells after each render to add click - shows page highlight
+(function(){ 
+  function enhanceCalendarCells() {  // enhance cells: add class, pointer cursor, and deep-link
+    var body = document.getElementById('calendarBody'); 
+    if (!body || !window.SHOWS_DATES) return; 
+    var cells = body.querySelectorAll('td[data-date]'); 
+    cells.forEach(function(td){ 
+      var dateStr = td.getAttribute('data-date'); 
+      if (window.SHOWS_DATES.has(dateStr)) { 
+        td.classList.add('has-show'); 
+        td.style.cursor = 'pointer'; 
+        td.addEventListener('click', function(){ 
+          var id = window.__DATE_TO_SHOWID__[dateStr]; // mapping from YYYY-MM-DD to a specific show id
+          var target = 'shows.html?open=' + encodeURIComponent(id || 1); 
+          window.location.href = target; 
+        }); 
+      } 
+    }); 
+  } 
+  // Try to hook after calendar render calls
+  document.addEventListener('DOMContentLoaded', function(){ 
+    setTimeout(enhanceCalendarCells, 0); 
+  }); 
+  // Also enhance after arrow clicks (delegate)
+  document.addEventListener('click', function(e){ 
+    if (e.target && (e.target.id==='prevMonthBtn' || e.target.id==='nextMonthBtn')) { 
+      setTimeout(enhanceCalendarCells, 0); 
+    } 
+  }); 
+  window.__enhanceCalendarCells = enhanceCalendarCells; 
+})(); 
+</script>
+<script> /* begin script block */
+(function(){ 
+  function ready(fn){ if(document.readyState!=='loading'){ fn(); } else { document.addEventListener('DOMContentLoaded', fn); } } // utility function to run a callback when DOM is ready
+  ready(function(){ 
+    var panels = Array.prototype.slice.call(document.querySelectorAll('.tab-panel')); // collect all tab panels
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab-btn')); // array of tab button/panel pairs
+    var introLinks = Array.prototype.slice.call(document.querySelectorAll('.intro-link')); 
+    var intro = document.getElementById('tabIntro'); // reference to intro cards container
+ 
+    function hideIntro(){ // utility to hide intro cards
+      if(!intro) return; 
+      intro.setAttribute('aria-hidden','true'); 
+      intro.style.display = 'none'; 
+    } 
+    function showIntro(){ // utility to show intro cards
+      if(!intro) return; 
+      intro.removeAttribute('aria-hidden'); 
+      intro.style.display = ''; 
+    } 
+ 
+    function showPanel(id){ // show the selected panel and sync tab states
+      if(!id) return; 
+      panels.forEach(function(p){  
+        var active = (p.id === id); 
+        p.classList.toggle('active', active); 
+        p.style.display = active ? 'block' : 'none'; 
+      }); 
+      tabs.forEach(function(t){ 
+        var controls = t.getAttribute('aria-controls') || t.getAttribute('data-target'); 
+        var isActive = (controls === id); 
+        t.classList.toggle('active', isActive); 
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false'); 
+      }); 
+      hideIntro(); 
+      if(history && history.replaceState){ // update URL hash without reloading the page
+        history.replaceState(null, '', '#' + id); // update URL hash without reloading the page
+      } 
+    } 
+ 
+    // Click handlers
+    introLinks.forEach(function(a){ // click handlers for intro cards to open panels
+      a.addEventListener('click', function(e){ 
+        e.preventDefault(); 
+        var target = a.getAttribute('data-target') || a.getAttribute('href').replace('#',''); 
+        showPanel(target); 
+      }); 
+    }); 
+    tabs.forEach(function(btn){ 
+      btn.addEventListener('click', function(e){ 
+        e.preventDefault(); 
+        var id = btn.getAttribute('aria-controls') || btn.getAttribute('data-target'); 
+        showPanel(id); 
+      }); 
+    }); 
+ 
+    // On load
+    var hash = (location.hash || '').replace('#',''); // on-load: open panel by URL hash if present
+    if(hash && document.getElementById(hash)){ 
+      showPanel(hash); // this will hide intro 
+    } else { 
+      // Ensure panels hidden and intro visible
+      panels.forEach(function(p){ if(!p.classList.contains('active')) { p.style.display = 'none'; } }); // hide all panels initially when no active hash
+      showIntro(); // show intro cards by default
+    } 
+  }); 
+})(); 
+</script>
+</body>
+</html>

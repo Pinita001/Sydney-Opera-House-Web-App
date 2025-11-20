@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- set character encoding -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - Sydney Opera House</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="logos.png" alt="Sydney Opera House" class="logo">
+            </div>
+            <ul class="nav-menu"> <!-- primary navigation links -->
+                <li class="nav-item"><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+                <li class="nav-item"><a href="shows.html" class="nav-link" data-page="shows">Shows</a></li>
+                <li class="nav-item">
+                    <a href="carts.html" class="nav-link" data-page="cart">
+                        Cart
+                        <span class="cart-badge" id="cartBadge">0</span> <!-- badge number updated by cart-badge.js -->
+                    </a>
+                </li>
+                <li class="nav-item"><a href="experiences.html" class="nav-link" data-page="experiences">Experiences</a></li>
+                <li class="nav-item"><a href="account.html" class="nav-link active" data-page="account">Account</a></li>
+                <li class="nav-item"><a href="recommend.html" class="nav-link">Recommends</a></li>
+</ul>
+        </div>
+    </header>
+
+    <section class="account-container"> <!-- main account section; shows login prompt when not authenticated -->
+        <div class="container account-prompt">
+            <h2 class="account-title">Your Account</h2>
+            
+            <i class="fas fa-user-circle profile-icon"></i>
+            <p class="login-message">Please log in to view your account</p>
+            <p>Access your bookings, manage your details, and more.</p>
+            
+            <button id="loginModalBtn" class="btn primary-btn login-launch-btn">Login</button>  <!-- button to open login/register modal -->
+        </div>
+    </section>
+
+    <div id="loginRegisterModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeModal" class="modal-close"><i class="fas fa-times"></i></button>
+
+            <div class="modal-tabs">
+                <button class="tab-btn" id="loginTabBtn">Login</button>
+                <button class="tab-btn" id="registerTabBtn">Register</button>
+            </div>
+            
+            <div id="loginFormContainer" class="form-container">
+                <form id="loginForm" method="POST" action="login.php"> <!-- login form posts to login.php -->
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">Login</button>
+                    <p class="forgot-password-link">Forgot Password?</p> <!-- password recovery link text -->
+                </form>
+            </div>
+            
+            <div id="registerFormContainer" class="form-container">
+                <form id="registerForm" method="POST" action="register.php"> <!-- register form posts to register.php -->
+                    <div class="form-group">
+                        <label for="reg-fullname">Full Name</label>
+                        <input type="text" id="reg-fullname" name="full_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email</label>
+                        <input type="email" id="reg-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-confirm-password">Confirm Password</label>
+                        <input type="password" id="reg-confirm-password" name="password_confirm" required>
+                    </div>
+                    <button type="submit" class="btn">Register</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- site footer with address and quick links -->
+    <footer>
+        <div class="footer-content"> <!-- footer grid layout -->
+            <div class="footer-column">
+                <h3>Sydney Opera House</h3>
+                <p>Bennelong Point<br>Sydney NSW 2000<br>Australia</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links"> <!-- footer quick links -->
+                    <li><a href="shows.html">What's On</a></li>
+                    <li><a href="account.html">My Account</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </footer>
+    <script src="cart-store.js"></script> <!-- localStorage helpers for cart persistence -->
+<script src="cart-badge.js"></script> <!-- updates cart badge count -->
+    <script src="app.js"></script>
+
+    <!-- Inline script: initializes account sidebar tab logic -->
+<script>
+(function accountTabsInit(){
+  var sidebar = document.querySelector('.sidebar-nav');
+  if (!sidebar) return; // bail out if page has no sidebar (prevents errors)
+  var links = sidebar.querySelectorAll('.nav-item-link a');
+  var panels = document.querySelectorAll('.account-tab-content');
+
+  function showTab(name){   // switch active tab and panel
+    // set active on sidebar items
+    sidebar.querySelectorAll('.nav-item-link').forEach(function(li){
+      li.classList.remove('active');
+    });
+    // activate the clicked one
+    var activeLink = sidebar.querySelector('.nav-item-link a[data-tab="'+name+'"]');    // select the link for the requested tab name
+    if (activeLink && activeLink.parentElement) activeLink.parentElement.classList.add('active');   // visually mark the selected tab in the sidebar
+
+    // show panel
+    panels.forEach(function(p){
+      p.classList.remove('active');
+    });
+    var panel = document.getElementById('tab-'+name);   // compute and grab the panel element by id
+    if (panel) panel.classList.add('active'); // show only the selected panel
+  }
+
+  links.forEach(function(a){ // attach click handlers to each tab link
+    a.addEventListener('click', function(e){
+      e.preventDefault(); // prevent page navigation; we swap content in place
+      var name = a.getAttribute('data-tab'); // read tab name from data attribute
+      if (name) showTab(name); // call showTab with the selected name
+    });
+  });
+
+  // Default to profile if exists, otherwise perks
+  if (document.getElementById('tab-profile')) showTab('profile'); // default to Profile tab if it exists
+  else showTab('perks');
+})();
+</script>
+
+</body>
+</html>
