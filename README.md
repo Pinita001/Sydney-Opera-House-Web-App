@@ -47,7 +47,6 @@ The system features:
 
 <img width="452" height="245" alt="image" src="https://github.com/user-attachments/assets/817622c1-78a3-4764-a75a-0b2d1c8d53f1" />
 <img width="452" height="246" alt="image" src="https://github.com/user-attachments/assets/3eac9dae-eef2-4edf-8beb-e3be6accc751" />
-<img width="451" height="131" alt="image" src="https://github.com/user-attachments/assets/673e4f99-e852-4152-816b-ab3c17dcce81" />
 
 ---
 
@@ -92,6 +91,7 @@ Includes tabs:
 * Clears cart upon success
 * Stores order & order_items in MySQL
 
+<img width="451" height="131" alt="image" src="https://github.com/user-attachments/assets/673e4f99-e852-4152-816b-ab3c17dcce81" />
 ---
 
 ### 🧪 **Tested for Reliability**
